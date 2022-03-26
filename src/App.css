@@ -7,6 +7,10 @@
   min-height: 100vh;
   font-family: "Noto Sans", "Courier New", Courier, monospace;
 }
+
+.Response {
+  display: none;
+}
 a {
   text-decoration: none;
 }
@@ -14,6 +18,15 @@ a {
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+@media screen and (max-width: 1000px) {
+  .App {
+    display: none;
+  }
+  .Response {
+    display: flex;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
