@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { signup } from "../redux/user/userActions";
 import Text from "../components/atoms/Text";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import { COLORS } from "../utils/Colors";
 import MainButton from "../components/atoms/MyButton";
 import InputBox from "../components/atoms/InputBox";
 import VerificationErrorStatus from "../components/molecules/VerificationErrorStatus";
 
-const SignUp = () => {
+const SignUp = (props) => {
+  const { userData, signNewUser } = props;
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const [authError, setAuthError] = useState(false);
   const [signupError, setSignupError] = useState("");
   const [user, setUser] = useState({
@@ -17,32 +22,62 @@ const SignUp = () => {
   });
   const onNameChange = (e) => {
     setUser({ ...user, name: e.target.value });
-    console.log(user);
   };
   const onEmailChange = (e) => {
     setUser({ ...user, email: e.target.value });
-    console.log(user);
   };
   const onPasswordChange = (e) => {
     setUser({ ...user, password: e.target.value });
-    console.log(user);
   };
-  const onSubmit = () => {
+  const onSubmit = async () => {
+    setLoading(true);
+    console.log(user);
     if (!user.name) {
       setAuthError(true);
       setSignupError("Please enter a company name");
+      setLoading(false);
     }
     if (!user.email) {
       setAuthError(true);
       setSignupError("Please enter an email address");
+      setLoading(false);
     }
     if (!user.password) {
       setAuthError(true);
       setSignupError("Please enter a password");
+      setLoading(false);
+    } else {
+      const newUser = await signNewUser(user);
+      if (userData.error) {
+        setSignupError(userData.error);
+      } else {
+        setAuthError(false);
+      }
+      const details = userData;
+      console.log(11, userData.error);
     }
-
+    // setLoading(false);
     console.log(user);
   };
+
+  useEffect(() => {
+    let data = userData;
+    if (data.error) {
+      setAuthError(true);
+      setSignupError(data.error);
+      setLoading(false);
+    } else {
+      setAuthError(false);
+    }
+  }, [userData]);
+
+  useEffect(() => {
+    console.log(authError);
+    if (userData.user.data) {
+      navigate("/confirm-email");
+    }
+  }, [authError, userData.user.data]);
+
   return (
     <div style={MainDiv}>
       <div style={MinorDiv}>
@@ -75,9 +110,13 @@ const SignUp = () => {
             onChange={(e) => onPasswordChange(e)}
             value={user.password}
           />
-          <Link to="/" style={{ width: "100%" }}>
-            <MainButton text="Create Account" onClick={() => onSubmit()} />
-          </Link>
+          {/* <Link to="/confirm-email" style={{ width: "100%" }}> */}
+          <MainButton
+            text="Create Account"
+            disabled={loading}
+            onClick={() => onSubmit()}
+          />
+          {/* </Link> */}
         </div>
         <span style={Span}>
           <Text
@@ -109,7 +148,19 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+const mapStateToProps = (state) => {
+  return {
+    userData: state.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signNewUser: (payload) => dispatch(signup(payload)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
 
 const MainDiv = {
   width: "100%",

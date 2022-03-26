@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { login } from "../redux/user/userActions";
+import { loadAllEmployees } from "../redux/employee/employeeActions";
+import { loadAllDepartments } from "../redux/department/departmentActions";
 import Text from "../components/atoms/Text";
 import { Link, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
@@ -11,7 +13,8 @@ import VerificationErrorStatus from "../components/molecules/VerificationErrorSt
 
 const Login = (props) => {
   const navigate = useNavigate();
-  const { getUser, userData } = props;
+  const { getUser, userData, getEmployees, getDepartments } = props;
+  const [show, setShow] = useState(false);
   const [authError, setAuthError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loginError, setLoginError] = useState("");
@@ -40,6 +43,8 @@ const Login = (props) => {
       setLoading(false);
     }
     const details = await getUser(user.email, user.password);
+    const employees = await getEmployees();
+    const departments = await getDepartments();
     const data = await userData;
 
     console.log(232, userData);
@@ -56,6 +61,7 @@ const Login = (props) => {
       setLoading(false);
     } else {
       setAuthError(false);
+      setLoading(false);
     }
   }, [userData]);
 
@@ -144,6 +150,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getUser: (email, password) => dispatch(login(email, password)),
+    getEmployees: () => dispatch(loadAllEmployees()),
+    getDepartments: () => dispatch(loadAllDepartments()),
   };
 };
 
