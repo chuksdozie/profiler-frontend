@@ -22,7 +22,15 @@ const MyInput = styled(TextField)((props) => ({
 }));
 
 const InputBox = (props) => {
-  const { placeholder, onChange, value, onKeyPress, onKeyDown, type } = props;
+  const {
+    placeholder,
+    onChange,
+    value,
+    onKeyPress,
+    onKeyDown,
+    type,
+    disabled,
+  } = props;
   return (
     <div style={{ width: "100%", margin: "20px 0" }}>
       <Grid item xs={12}>
@@ -36,6 +44,7 @@ const InputBox = (props) => {
           onKeyPress={onKeyPress}
           onKeyDown={onKeyDown}
           fullWidth
+          disabled={disabled}
         />
       </Grid>
       {/* <MyInput fontSize="3" /> */}

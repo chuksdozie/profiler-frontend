@@ -25,7 +25,7 @@ const MyButton = styled(Button)((props) => ({
 }));
 
 const MainButton = (props) => {
-  const { text, onClick, colors, bg, width, variant, disabled } = props;
+  const { text, onClick, bg, width, variant, disabled } = props;
   return (
     <div style={{ width: "100%" }}>
       <Grid item xs={12}>
