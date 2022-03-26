@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import {
   BrowserRouter as Router,
   Routes,
@@ -15,8 +16,8 @@ import Profile from "./Profile";
 import AddEmployee from "./AddEmployee";
 
 const Dashboard = (props) => {
-  const { content } = props;
-
+  const { content, userData } = props;
+  let user = userData.user.data;
   return (
     <div style={MainDiv}>
       <div style={Side}>
@@ -36,7 +37,13 @@ const Dashboard = (props) => {
   );
 };
 
-export default Dashboard;
+const mapStateToProps = (state) => {
+  return {
+    userData: state.user,
+  };
+};
+
+export default connect(mapStateToProps)(Dashboard);
 
 const MainDiv = {
   width: "100%",
