@@ -11,7 +11,7 @@ const SearchDashboardHead = () => {
         <InputBox placeholder="search for an employee" />
       </div>
       <div style={RightDiv}>
-        <Link to="/add-employee" style={{ width: "100%" }}>
+        <Link to="/dashboard/home" style={{ width: "100%" }}>
           <SecondaryButton text="Add New Employee" />
         </Link>
       </div>
