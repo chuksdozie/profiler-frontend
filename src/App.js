@@ -15,6 +15,8 @@ import SignUp from "./pages/SignUp";
 import ConfirmEmail from "./pages/ConfirmEmail";
 import SideBar from "./components/organisms/SideBar";
 import Dashboard from "./pages/Dashboard";
+import Responsive from "./pages/Responsive";
+import NotificationModal from "./components/molecules/NotificationModal";
 
 console.log(store.getState());
 logout();
@@ -30,6 +32,9 @@ function App() {
             <Route path="confirm-email" element={<ConfirmEmail />} />
             <Route path="dashboard/*" element={<Dashboard />} />
           </Routes>
+        </div>
+        <div className="Response">
+          <Responsive />
         </div>
       </Router>
     </Provider>
