@@ -22,10 +22,10 @@ const items = [
   { id: "profile", name: "Profile", iconImg: BsPersonLinesFill },
   { id: "employments", name: "Employees", iconImg: CgProfile },
   { id: "departments", name: "Departments", iconImg: BsPeopleFill },
-  { id: "profile", name: "Archive", iconImg: BiArchiveIn },
-  { id: "profile", name: "Reports", iconImg: IoDocumentAttachSharp },
-  { id: "profile", name: "Help", iconImg: MdOutlineHelpOutline },
-  { id: "profile", name: "Setting", iconImg: FiSettings },
+  // { id: "profile", name: "Archive", iconImg: BiArchiveIn },
+  // { id: "profile", name: "Reports", iconImg: IoDocumentAttachSharp },
+  // { id: "profile", name: "Help", iconImg: MdOutlineHelpOutline },
+  // { id: "profile", name: "Setting", iconImg: FiSettings },
   { id: "/", name: "Log out", iconImg: FiSettings },
 ];
 
@@ -47,7 +47,7 @@ const SideBar = (props) => {
           color="#525252"
           size="20px"
           weight="600"
-          padding="60px 10px 10px 0"
+          padding="25px 10px 10px 0"
         />
       </span>
       {items.map((i, k) => (
@@ -82,9 +82,10 @@ const MainDiv = {
   width: "100%",
   height: "75vh",
   backgroundColor: COLORS.SIGN_UP_BACKGROUND,
+  // backgroundColor: "yellow",
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
+  justifyContent: "left",
   alignItems: "center",
   borderRadius: "5px",
 };
@@ -93,12 +94,12 @@ const Span = {
   display: "flex",
   alignItems: "center",
   width: "100%",
-  padding: "50px 0",
+  padding: "10px 0 50px",
   // backgroundColor: "red",
 };
 
 const Img = {
   width: 25,
   height: 25,
-  padding: "50px 5px 0 20px",
+  padding: "10px 5px 0 20px",
 };
