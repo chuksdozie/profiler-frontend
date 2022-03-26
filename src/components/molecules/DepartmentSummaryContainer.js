@@ -1,5 +1,5 @@
 import React from "react";
-import { Fragment } from "react";
+import { connect } from "react-redux";
 import { COLORS } from "../../utils/Colors";
 import Text from "../atoms/Text";
 import BottomSummaryCard from "./BottomSummaryCard";
@@ -8,29 +8,46 @@ import { BsCalendarDate, BsClockHistory } from "react-icons/bs";
 import { BiBus } from "react-icons/bi";
 import { MdNotInterested } from "react-icons/md";
 
-const DepartmentSummaryContainer = () => {
+const DepartmentSummaryContainer = (props) => {
+  const { userData, departmentData, employeeData } = props;
+  let myDepartments = [];
+  // let myEmployees = [];
+  for (let i = 0; i < departmentData.department.length; i++) {
+    if (userData.user.data.id === departmentData.department[i].company_id) {
+      myDepartments.push(departmentData.department[i]);
+    }
+  }
   return (
     <div style={ParentDiv}>
       <Text
-        text="Department"
+        text="Departments"
         color="#525252"
         size="17px"
         weight="600"
         padding="1px"
       />
       <div style={MainDiv}>
-        <DepartmentSummaryCard />
-        <DepartmentSummaryCard />
-        <DepartmentSummaryCard />
-        <DepartmentSummaryCard />
-        <DepartmentSummaryCard />
-        <DepartmentSummaryCard />
+        {myDepartments.map((i, k) => (
+          <DepartmentSummaryCard
+            department={i.name}
+            totalEmployees="5"
+            othersLeft="5"
+          />
+        ))}
       </div>
     </div>
   );
 };
 
-export default DepartmentSummaryContainer;
+const mapStateToProps = (state) => {
+  return {
+    departmentData: state.department,
+    userData: state.user,
+    employeeData: state.employee,
+  };
+};
+
+export default connect(mapStateToProps)(DepartmentSummaryContainer);
 
 const ParentDiv = {
   width: "55%",
@@ -46,8 +63,8 @@ const MainDiv = {
   height: "270px",
   backgroundColor: "white",
   display: "flex",
-  flexWrap: "wrap",
-  justifyContent: "space-between",
+  flexDirection: "column",
+  justifyContent: "left",
   alignItems: "flex-start",
   borderRadius: "7px",
   margin: "15px 0",

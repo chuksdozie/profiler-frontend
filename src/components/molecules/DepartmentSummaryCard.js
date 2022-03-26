@@ -2,19 +2,29 @@ import React from "react";
 import { COLORS } from "../../utils/Colors";
 import Text from "../atoms/Text";
 
-const DepartmentSummaryCard = () => {
+const DepartmentSummaryCard = (props) => {
+  const {
+    department,
+    totalEmployees,
+    pic1,
+    pic2,
+    pic3,
+    pic4,
+    pic5,
+    othersLeft,
+  } = props;
   return (
     <div style={MainDiv}>
       <div style={LeftDiv}>
         <Text
-          text="Marketing"
+          text={department}
           color="#525252"
           size="17px"
           weight="400"
           padding="0 20px"
         />
         <Text
-          text="150 Employees"
+          text={totalEmployees}
           color="#525252"
           size="17px"
           weight="600"
@@ -22,13 +32,13 @@ const DepartmentSummaryCard = () => {
         />
       </div>
       <div style={RightDiv}>
-        <img style={LeftSideDiv} src="1" alt="staff" />
-        <img style={LeftSideOverDiv} src="1" alt="staff" />
-        <img style={LeftSideOverDiv} src="1" alt="staff" />
-        <img style={LeftSideOverDiv} src="1" alt="staff" />
-        <img style={LeftSideOverDiv} src="1" alt="staff" />
+        <img style={LeftSideDiv} src={pic1} alt="s" />
+        <img style={LeftSideOverDiv} src={pic2} alt="s" />
+        <img style={LeftSideOverDiv} src={pic3} alt="s" />
+        <img style={LeftSideOverDiv} src={pic4} alt="s" />
+        <img style={LeftSideOverDiv} src={pic5} alt="s" />
         <Text
-          text="+ 145 Others"
+          text={othersLeft}
           color="#525252"
           size="17px"
           weight="600"
