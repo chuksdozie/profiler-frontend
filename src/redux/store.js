@@ -4,10 +4,14 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import photoReducer from "./photo/photoReducer";
 import userReducer from "./user/userReducer";
+import employeeReducer from "./employee/employeeReducer";
+import departmentReducer from "./department/departmentReducer";
 
 const rootReducer = combineReducers({
   photo: photoReducer,
   user: userReducer,
+  employee: employeeReducer,
+  department: departmentReducer,
 });
 const store = createStore(
   rootReducer,
