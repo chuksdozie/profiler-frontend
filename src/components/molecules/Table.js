@@ -10,6 +10,7 @@ import TableRow from "@mui/material/TableRow";
 import { MdMoreVert } from "react-icons/md";
 import { CgMoreVertical } from "react-icons/cg";
 import IconMenu from "./IconMenu";
+import Avatar from "../../resources/avatarprofile.png";
 
 // const columns = [
 //   { id: "name", label: "Name", minWidth: 170 },
@@ -113,7 +114,7 @@ export default function StickyHeadTable(props) {
                           {column.format && typeof value === "number" ? (
                             column.format(value)
                           ) : column.format === "image" ? (
-                            <img style={Img} src={value} alt="" />
+                            <img style={Img} src={Avatar} alt="" />
                           ) : column.format === "action" ? (
                             <div
                             // style={{
@@ -165,6 +166,6 @@ const Img = {
   width: "30px",
   height: "30px",
   borderRadius: "50%",
-  backgroundColor: "yellow",
-  border: "2px red solid",
+  backgroundColor: "blue",
+  border: "2px yellow solid",
 };
