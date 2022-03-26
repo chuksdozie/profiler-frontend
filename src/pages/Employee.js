@@ -1,87 +1,105 @@
 import React from "react";
+import { connect } from "react-redux";
 import { COLORS } from "../utils/Colors";
 import { Link } from "react-router-dom";
 import SearchDashboardHead from "../components/organisms/SearchDashboardHead";
 import StickyHeadTable from "../components/molecules/Table";
 
-const info = [
-  { name: 1, bitch: 2 },
-  { name: 2 },
-  { name: 3 },
-  { name: 4 },
-  { name: 5 },
-  { name: 6 },
-];
+const Employment = (props) => {
+  const { userData, employeeData } = props;
+  let myEmployees = [];
+  for (let i = 0; i < employeeData.employee.length; i++) {
+    if (userData.user.data.id === employeeData.employee[i].company_id) {
+      myEmployees.push(employeeData.employee[i]);
+    }
+  }
+  const tableColumns = [
+    {
+      id: "image",
+      label: "",
+      minWidth: 40,
+      align: "center",
+      format: "image",
+    },
+    { id: "fullname", label: "Full Name", minWidth: 150 },
+    { id: "department", label: "Department", minWidth: 80 },
+    {
+      id: "email",
+      label: "Email Address",
+      minWidth: 80,
+      align: "right",
+      format: (value) => value.toLocaleString("en-US"),
+    },
+    {
+      id: "gender",
+      label: "Gender",
+      minWidth: 60,
+      align: "right",
+      format: (value) => value.toLocaleString("en-US"),
+    },
+    {
+      id: "role",
+      label: "Job Role",
+      minWidth: 100,
+      align: "right",
+      format: (value) => value.toFixed(2),
+    },
+    {
+      id: "status",
+      label: "Status",
+      minWidth: 70,
+      align: "right",
+      format: (value) => value.toFixed(2),
+    },
+  ];
 
-const list = [];
-for (let i = 0; i < info.length; i++) {
-  const data = { name: info[i].name };
-  list.push(data);
-}
-console.log(list);
+  // function createData(name, code, population, size) {
+  //   const density = population / size;
+  //   return { name, code, population, size, density };
+  // }
 
-const tableColumns = [
-  {
-    id: "image",
-    label: "",
-    minWidth: 50,
-    align: "center",
-    format: "image",
-  },
-  { id: "name", label: "Name", minWidth: 170 },
-  { id: "code", label: "ISO\u00a0Code", minWidth: 100 },
-  {
-    id: "population",
-    label: "Population",
-    minWidth: 170,
-    align: "right",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "size",
-    label: "Size\u00a0(km\u00b2)",
-    minWidth: 170,
-    align: "right",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "density",
-    label: "Density",
-    minWidth: 100,
-    align: "right",
-    format: (value) => value.toFixed(2),
-  },
-];
-
-function createData(name, code, population, size) {
-  const density = population / size;
-  return { name, code, population, size, density };
-}
-
-const tableRows = [
-  createData("India", "IN", 1324171354, 3287263),
-  createData("China", "CN", 1403500365, 9596961),
-  createData("Italy", "IT", 60483973, 301340),
-  createData("United States", "US", 327167434, 9833520),
-  createData("Canada", "CA", 37602103, 9984670),
-  createData("Australia", "AU", 25475400, 7692024),
-  createData("Germany", "DE", 83019200, 357578),
-  createData("Ireland", "IE", 4857000, 70273),
-  createData("Mexico", "MX", 126577691, 1972550),
-  createData("Japan", "JP", 126317000, 377973),
-  createData("France", "FR", 67022000, 640679),
-  createData("United Kingdom", "GB", 67545757, 242495),
-  createData("Russia", "RU", 146793744, 17098246),
-  createData("Nigeria", "NG", 200962417, 923768),
-  createData("Brazil", "BR", 210147125, 8515767),
-];
-
-const Employment = () => {
+  let tableRows = [
+    {
+      fullname: "Alvan Matthew Ikoku",
+      department: "fishing",
+      email: "mathe@jabu.com",
+      gender: "male",
+      role: "fisher man",
+      status: "available",
+    },
+    {
+      fullname: "Alvan Matthew Ikoku",
+      department: "fishing",
+      email: "mathe@jabu.com",
+      gender: "male",
+      role: "fisher man",
+      status: "available",
+    },
+    {
+      fullname: "Alvan Matthew Ikoku",
+      department: "fishing",
+      email: "mathe@jabu.com",
+      gender: "male",
+      role: "fisher man",
+      status: "available",
+    },
+  ];
+  for (let i = 0; i < myEmployees.length; i++) {
+    let tableData = {
+      fullname: `${myEmployees[i].first_name} ${myEmployees[i].last_name} ${myEmployees[i].middle_name}`,
+      department: myEmployees[i].department_id,
+      email: myEmployees[i].email,
+      gender: myEmployees[i].gender,
+      role: myEmployees[i].job_title,
+      status: myEmployees[i].status,
+    };
+    tableRows.push(tableData);
+  }
   return (
     <div style={MainDiv}>
       <SearchDashboardHead />
       <div style={TableDiv}>
-        <Link to="/add-employee">
+        <Link to="/dashboard/home">
           <StickyHeadTable columns={tableColumns} rows={tableRows} />
         </Link>
       </div>
@@ -89,7 +107,14 @@ const Employment = () => {
   );
 };
 
-export default Employment;
+const mapStateToProps = (state) => {
+  return {
+    employeeData: state.employee,
+    userData: state.user,
+  };
+};
+
+export default connect(mapStateToProps)(Employment);
 
 const MainDiv = {
   width: "100%",
