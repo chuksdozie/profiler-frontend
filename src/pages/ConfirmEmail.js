@@ -1,11 +1,16 @@
 import React from "react";
+import { connect } from "react-redux";
 import Text from "../components/atoms/Text";
 import Grid from "@mui/material/Grid";
 import { COLORS } from "../utils/Colors";
 import MainButton from "../components/atoms/MyButton";
 import InputBox from "../components/atoms/InputBox";
 
-const ConfirmEmail = () => {
+const ConfirmEmail = (props) => {
+  const { userData } = props;
+  console.log(543, userData);
+  const email = userData.user.data.email;
+  console.log(email);
   return (
     <div style={MainDiv}>
       <div style={MinorDiv}>
@@ -18,7 +23,7 @@ const ConfirmEmail = () => {
         />
         <div style={{ width: "80%" }}>
           <Text
-            text="We just sent  a confirmation to adamswhite@gmail.com"
+            text={`We just sent  a confirmation to ${email}`}
             color="#525252"
             size="12px"
             weight="200"
@@ -28,7 +33,7 @@ const ConfirmEmail = () => {
         </div>
         <span style={Span}>
           <Text
-            text={`Haven’t recieved the email? Check your spam folder to make sure it didn’t end up there or resend the confirmation email.`}
+            text={`Haven’t recieved the email? Check your spam folder to make sure it didn’t end up there or resend the confirmation email .`}
             color="#525252"
             size="13px"
             weight="normal"
@@ -37,13 +42,13 @@ const ConfirmEmail = () => {
         </span>
         <span style={Span}>
           <Text
-            text="Already have an account?"
+            text="Already confirmed email?"
             color="#525252"
             size="15px"
             weight="normal"
             padding="10px"
           />
-          <a href="2">
+          <a href="/">
             <Text
               text="Sign In"
               color="#525252"
@@ -58,7 +63,13 @@ const ConfirmEmail = () => {
   );
 };
 
-export default ConfirmEmail;
+const mapStateToProps = (state) => {
+  return {
+    userData: state.user,
+  };
+};
+
+export default connect(mapStateToProps)(ConfirmEmail);
 
 const MainDiv = {
   width: "100%",
