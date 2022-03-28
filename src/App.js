@@ -6,7 +6,9 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-import store from "./redux/store";
+// import store from "./redux/store";
+import { store, persistor } from "./redux/store";
+import { PersistGate } from "redux-persist/integration/react";
 import Home from "./pages/Home";
 import "./App.css";
 import { logout } from "./redux/user/userActions";
@@ -24,19 +26,21 @@ logout();
 function App() {
   return (
     <Provider store={store}>
-      <Router>
-        <div className="App">
-          <Routes>
-            <Route path="" element={<Login />} />
-            <Route path="signup" element={<SignUp />} />
-            <Route path="confirm-email" element={<ConfirmEmail />} />
-            <Route path="dashboard/*" element={<Dashboard />} />
-          </Routes>
-        </div>
-        <div className="Response">
-          <Responsive />
-        </div>
-      </Router>
+      <PersistGate loading={null} persistor={persistor}>
+        <Router>
+          <div className="App">
+            <Routes>
+              <Route path="" element={<Login />} />
+              <Route path="signup" element={<SignUp />} />
+              <Route path="confirm-email" element={<ConfirmEmail />} />
+              <Route path="dashboard/*" element={<Dashboard />} />
+            </Routes>
+          </div>
+          <div className="Response">
+            <Responsive />
+          </div>
+        </Router>
+      </PersistGate>
     </Provider>
   );
 }
