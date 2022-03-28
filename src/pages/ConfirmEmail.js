@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { logout } from "../redux/user/userActions";
 import Text from "../components/atoms/Text";
 import Grid from "@mui/material/Grid";
 import { COLORS } from "../utils/Colors";
@@ -7,7 +8,7 @@ import MainButton from "../components/atoms/MyButton";
 import InputBox from "../components/atoms/InputBox";
 
 const ConfirmEmail = (props) => {
-  const { userData } = props;
+  const { userData, clearDetails } = props;
   console.log(543, userData);
   const email = userData.user.data.email;
   console.log(email);
@@ -48,7 +49,7 @@ const ConfirmEmail = (props) => {
             weight="normal"
             padding="10px"
           />
-          <a href="/">
+          <a href="/" onClick={() => clearDetails()}>
             <Text
               text="Sign In"
               color="#525252"
@@ -69,7 +70,13 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(ConfirmEmail);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    clearDetails: () => dispatch(logout()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ConfirmEmail);
 
 const MainDiv = {
   width: "100%",
