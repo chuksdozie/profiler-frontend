@@ -10,8 +10,10 @@ import {
   SIGNUP_USER_FAILURE,
   SIGNUP_USER_SUCCESS,
 } from "./userTypes";
+import { clearEmployee } from "../employee/employeeActions";
 import axios from "axios";
 import { BASE_URL } from "../../utils/Constants";
+import { clearDepartment } from "../department/departmentActions";
 
 export const loginUser = () => {
   return {
@@ -82,6 +84,8 @@ export const signupUserFailure = (error) => {
 export const logout = () => {
   return (dispatch) => {
     dispatch(logoutUser());
+    dispatch(clearEmployee());
+    dispatch(clearDepartment());
   };
 };
 
