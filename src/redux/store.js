@@ -1,4 +1,6 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import { persistStore, persistReducer } from "redux-persist";
 import { composeWithDevTools } from "redux-devtools-extension";
 // import logger from "redux-logger";
 import thunk from "redux-thunk";
@@ -13,9 +15,23 @@ const rootReducer = combineReducers({
   employee: employeeReducer,
   department: departmentReducer,
 });
-const store = createStore(
-  rootReducer,
+
+const persistConfig = {
+  key: "root",
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+// const store = createStore(
+//   rootReducer,
+//   composeWithDevTools(applyMiddleware(thunk))
+// );
+
+export const store = createStore(
+  persistedReducer,
   composeWithDevTools(applyMiddleware(thunk))
 );
+export const persistor = persistStore(store);
 
-export default store;
+// export default store;
