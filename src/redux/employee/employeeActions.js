@@ -5,6 +5,7 @@ import {
   UPDATE_EMPLOYEE,
   UPDATE_EMPLOYEE_FAILURE,
   UPDATE_EMPLOYEE_SUCCESS,
+  CLEAR_EMPLOYEE,
 } from "./employeeTypes";
 import axios from "axios";
 import { BASE_URL } from "../../utils/Constants";
@@ -47,6 +48,12 @@ export const updateEmployeeFailure = (error) => {
   return {
     type: UPDATE_EMPLOYEE_FAILURE,
     payload: error,
+  };
+};
+
+export const clearEmployee = () => {
+  return {
+    type: CLEAR_EMPLOYEE,
   };
 };
 

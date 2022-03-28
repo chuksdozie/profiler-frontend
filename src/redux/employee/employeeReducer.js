@@ -5,6 +5,7 @@ import {
   UPDATE_EMPLOYEE,
   UPDATE_EMPLOYEE_FAILURE,
   UPDATE_EMPLOYEE_SUCCESS,
+  CLEAR_EMPLOYEE,
 } from "./employeeTypes";
 
 const initialState = {
@@ -53,6 +54,13 @@ const employeeReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.payload,
+      };
+
+    case CLEAR_EMPLOYEE:
+      return {
+        employee: {},
+        loading: false,
+        error: "",
       };
 
     default:
