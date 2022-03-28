@@ -43,10 +43,10 @@ const Login = (props) => {
       setLoading(false);
     }
     const details = await getUser(user.email, user.password);
-    const employees = await getEmployees();
-    const departments = await getDepartments();
-    const data = await userData;
 
+    const data = await userData;
+    // const employees = await getEmployees();
+    // const departments = await getDepartments();
     console.log(232, userData);
     console.log(details);
 
@@ -55,6 +55,11 @@ const Login = (props) => {
 
   useEffect(() => {
     let data = userData;
+    if (data.user.data) {
+      const employees = getEmployees();
+      const departments = getDepartments();
+    }
+
     if (data.error) {
       setAuthError(true);
       setLoginError(data.error);
@@ -63,7 +68,7 @@ const Login = (props) => {
       setAuthError(false);
       setLoading(false);
     }
-  }, [userData]);
+  }, [userData, getEmployees, getDepartments]);
 
   useEffect(() => {
     console.log(authError);
