@@ -5,6 +5,7 @@ import {
   UPDATE_DEPARTMENT,
   UPDATE_DEPARTMENT_FAILURE,
   UPDATE_DEPARTMENT_SUCCESS,
+  CLEAR_DEPARTMENT,
 } from "./departmentTypes";
 import axios from "axios";
 import { BASE_URL } from "../../utils/Constants";
@@ -47,6 +48,12 @@ export const updateDepartmentFailure = (error) => {
   return {
     type: UPDATE_DEPARTMENT_FAILURE,
     payload: error,
+  };
+};
+
+export const clearDepartment = () => {
+  return {
+    type: CLEAR_DEPARTMENT,
   };
 };
 

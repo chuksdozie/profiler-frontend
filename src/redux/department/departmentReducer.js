@@ -1,4 +1,5 @@
 import {
+  CLEAR_DEPARTMENT,
   LOAD_DEPARTMENT,
   LOAD_DEPARTMENT_FAILURE,
   LOAD_DEPARTMENT_SUCCESS,
@@ -53,6 +54,13 @@ const departmentReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.payload,
+      };
+
+    case CLEAR_DEPARTMENT:
+      return {
+        department: {},
+        loading: false,
+        error: "",
       };
 
     default:
