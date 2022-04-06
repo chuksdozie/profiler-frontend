@@ -1,1 +1,1 @@
-export const BASE_URL = "http://localhost:5003/api";
+export const BASE_URL = "https://limitless-shore-04909.herokuapp.com/api";
