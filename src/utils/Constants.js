@@ -1,1 +1,3 @@
-export const BASE_URL = "http://localhost:5003/api";
+import("dotenv");
+export const BASE_URL = process.env.BASE_URL;
+// process.env.BASE_URL
