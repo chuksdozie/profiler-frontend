@@ -1,1 +1,1 @@
-export const BASE_URL = "https://profiler-backend-devchuks.herokuapp.com/api";
+export const BASE_URL = "http://localhost:5003/api";
