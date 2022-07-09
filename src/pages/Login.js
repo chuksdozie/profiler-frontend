@@ -32,6 +32,8 @@ const Login = (props) => {
   };
   const onSubmit = async () => {
     setLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 3000)); // 3 sec
+    console.log("load", loading);
     if (!user.email) {
       setAuthError(true);
       setLoginError("Please enter an email address");
@@ -49,6 +51,8 @@ const Login = (props) => {
     // const departments = await getDepartments();
     console.log(232, userData);
     console.log(details);
+    setLoading(false);
+    console.log("load", loading);
 
     console.log(user);
   };
@@ -108,7 +112,7 @@ const Login = (props) => {
             style={{ width: "100%" }}
           >
             <MainButton
-              text="Sign in"
+              text={loading ? "please wait" : "Sign in"}
               disabled={loading}
               onClick={() => onSubmit()}
             />
